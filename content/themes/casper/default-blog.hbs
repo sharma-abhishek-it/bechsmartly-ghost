@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {{> common-head}}
+</head>
+<body class="{{body_class}} blog">
+    <script>document.getElementsByClassName('blog')[0].style.width = (window.innerWidth - 350) + "px";</script>
+
+    {{> blog-sidebar}}
+    {{! Everything else gets inserted here }}
+    <div class="col-md-10 col-md-offset-1">
+      {{{body}}}
+    </div>
+
+    {{> common-foot}}
+</body>
+</html>

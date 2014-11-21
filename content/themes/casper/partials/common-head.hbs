@@ -1,0 +1,32 @@
+{{! Document Settings }}
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+{{! Page Meta }}
+<title>{{meta_title}}</title>
+<meta name="description" content="{{meta_description}}" />
+
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="http://app.bechsmartly.in">
+<link rel="dns-prefetch" href="http://www.google-analytics.com">
+<link rel="dns-prefetch" href="http://ajax.googleapis.com">
+<link rel="dns-prefetch" href="http://fonts.googleapis.com">
+
+<meta name="HandheldFriendly" content="True" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="shortcut icon" href="{{asset "favicon.ico"}}">
+
+{{! Styles'n'Scripts }}
+<link rel="stylesheet" type="text/css" href="{{asset 'css/bootstrap_3.3.1/bootstrap.css'}}" />
+<link rel="stylesheet" type="text/css" href="{{asset 'css/bootstrapValidator.min.css'}}" />
+<link rel="stylesheet" type="text/css" href="{{asset 'css/style.css'}}" />
+<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400|Volkhov:400,700' rel='stylesheet' type='text/css'>
+
+{{! Ghost outputs important style and meta data with this tag }}
+{{ghost_head}}
+<script>
+IS_PRODUCTION = undefined;
+</script>
+
+<!-- analytics_snippet -->

@@ -1,0 +1,45 @@
+{{! Previous/next page links - only displayed on page 2+ }}
+<div class="extra-pagination inner">
+    {{!pagination}}
+</div>
+
+{{! This is the post loop - each post will be output using this markup }}
+{{#foreach posts}}
+
+<article class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default post-excerpt clearfix">
+      <hr class="title-line" />
+      <img src="{{ asset 'images/pin.png' }}" class="title-pin"/>
+      <div class="date text-right">Posted on<br>{{date format="DD MMMM YYYY"}}</div>
+      <div class="col-md-11">
+        <h3 class="title">
+          <a href="{{url}}">{{{title}}}</a>
+        </h3>
+        <p>
+          {{excerpt words="42"}} <a class="read-more" href="{{url}}">...&raquo;</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</article>
+<br><br><br>
+
+{{/foreach}}
+<!-- <article class="{{post_class}}">
+    <header class="post-header">
+        <h2 class="post-title"><a href="{{url}}">{{{title}}}</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>{{excerpt words="26"}} <a class="read-more" href="{{url}}">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        {{#if author.image}}<img class="author-thumb" src="{{author.image}}" alt="Author image" nopin="nopin" />{{/if}}
+        {{author}}
+        {{tags prefix=" on "}}
+        <time class="post-date" datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMMM YYYY"}}</time>
+    </footer>
+</article> -->
+
+{{! Previous/next page links - displayed on every page }}
+{{!pagination}}

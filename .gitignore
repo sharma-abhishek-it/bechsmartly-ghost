@@ -1,0 +1,8 @@
+build
+node_modules
+content/apps
+content/images
+content/data
+content/themes/casper/assets/css
+.DS_Store
+.git
