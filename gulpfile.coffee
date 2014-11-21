@@ -52,7 +52,12 @@ gulp.task 'livereload', ->
   ghost({ config: __dirname + '/ghost-config.js' })
   .then (ghostServer) -> ghostServer.start()
 
-gulp.task 'build', ['bootstrap', 'less'], ->
+
+gulp.task 'default', ['bootstrap','less','livereload']
+
+
+##### Buildi tasks start here
+gulp.task 'copy-theme', ['bootstrap', 'less'], ->
   gulp.src 'content/themes/**/*'
   .pipe tap (file) ->
     return unless file.contents and path.extname(file.path) == '.hbs'
@@ -63,21 +68,13 @@ gulp.task 'build', ['bootstrap', 'less'], ->
     contents = contents.replace "<!-- analytics_snippet -->", analytics
     file.contents = new Buffer contents
     return;
-  .pipe plugins.zip('build.zip')
+  .pipe gulp.dest('dist/content/themes/')
+
+gulp.task 'copy-config', ->
+  gulp.src ['config.js', 'bechsmartly-nginx.conf']
   .pipe gulp.dest('dist/')
 
-# gulp.task 'analytics_snippet', ['copy'], ->
-#   gulp.src 'build/content/themes/**/*.hbs'
-#   .pipe tap (file) ->
-#     analyticsPath = __dirname + '/scripts/analytics_snippet.html'
-#     analytics = String(fs.readFileSync(analyticsPath))
-#
-#     contents = file.contents.toString()
-#     contents = contents.replace "<!-- analytics_snippet -->", analytics
-#     file.contents = new Buffer contents
-#     return;
-#   .pipe gulp.dest('build/content/themes')
-
-# gulp.task 'build', ['copy', 'analytics_snippet']
-
-gulp.task 'default', ['bootstrap','less','livereload']
+gulp.task 'build', ['copy-theme', 'copy-config'], ->
+  gulp.src 'dist/**/*'
+  .pipe plugins.zip 'build.zip'
+  .pipe gulp.dest('dist/')
