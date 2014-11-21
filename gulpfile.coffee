@@ -1,9 +1,9 @@
 'use strict'
 
+path = require('path')
 gulp = require('gulp')
 plugins = require('gulp-load-plugins')()
 lazypipe = require('lazypipe')
-gfi = require('gulp-file-include')
 tap = require('gulp-tap')
 fs = require('fs')
 
@@ -52,13 +52,10 @@ gulp.task 'livereload', ->
   ghost({ config: __dirname + '/ghost-config.js' })
   .then (ghostServer) -> ghostServer.start()
 
-gulp.task 'copy', ['bootstrap', 'less'], ->
+gulp.task 'build', ['bootstrap', 'less'], ->
   gulp.src 'content/themes/**/*'
-  .pipe gulp.dest('build/content/themes')
-
-gulp.task 'analytics_snippet', ['copy'], ->
-  gulp.src 'build/content/themes/**/*.hbs'
   .pipe tap (file) ->
+    return unless file.contents and path.extname(file.path) == '.hbs'
     analyticsPath = __dirname + '/scripts/analytics_snippet.html'
     analytics = String(fs.readFileSync(analyticsPath))
 
@@ -66,8 +63,21 @@ gulp.task 'analytics_snippet', ['copy'], ->
     contents = contents.replace "<!-- analytics_snippet -->", analytics
     file.contents = new Buffer contents
     return;
-  .pipe gulp.dest('build/content/themes')
+  .pipe plugins.zip('build.zip')
+  .pipe gulp.dest('dist/')
 
-gulp.task 'build', ['copy', 'analytics_snippet']
+# gulp.task 'analytics_snippet', ['copy'], ->
+#   gulp.src 'build/content/themes/**/*.hbs'
+#   .pipe tap (file) ->
+#     analyticsPath = __dirname + '/scripts/analytics_snippet.html'
+#     analytics = String(fs.readFileSync(analyticsPath))
+#
+#     contents = file.contents.toString()
+#     contents = contents.replace "<!-- analytics_snippet -->", analytics
+#     file.contents = new Buffer contents
+#     return;
+#   .pipe gulp.dest('build/content/themes')
+
+# gulp.task 'build', ['copy', 'analytics_snippet']
 
 gulp.task 'default', ['bootstrap','less','livereload']
