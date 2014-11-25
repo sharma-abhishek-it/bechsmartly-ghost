@@ -6,6 +6,7 @@ plugins = require('gulp-load-plugins')()
 lazypipe = require('lazypipe')
 tap = require('gulp-tap')
 fs = require('fs')
+del = require('del')
 
 templates_path = 'content/themes/casper/'
 hbs_glob = templates_path + '**/*.hbs'
@@ -71,8 +72,10 @@ gulp.task 'copy-theme', ['bootstrap', 'less'], ->
   .pipe gulp.dest('dist/content/themes/')
 
 gulp.task 'copy-config', ->
-  gulp.src ['config.js', 'bechsmartly-nginx.conf']
+  gulp.src ['config.js', 'nginx.conf']
   .pipe gulp.dest('dist/')
+
+gulp.task 'clean', -> del ['dist/**']
 
 gulp.task 'build', ['copy-theme', 'copy-config'], ->
   gulp.src 'dist/**/*'
