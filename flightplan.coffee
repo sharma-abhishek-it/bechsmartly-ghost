@@ -34,6 +34,7 @@ plan.remote (remote) ->
   remote.exec "echo #{server} >> /repositories/servers; cat /repositories/servers | sort -u -o /repositories/servers"
   remote.exec "cp -f /repositories/#{server}/nginx.conf /etc/sites/#{server}-nginx.conf"
   remote.exec "if docker ps -a | grep #{server} > /dev/null; then docker stop #{server}; docker rm #{server}; fi"
-  remote.exec "touch /var/cache/pagespeed/#{server}.flush"
+  remote.exec "touch /var/cache/pagespeed/#{server}/cache.flush"
+  remote.exec "chmod -R 777 /var/cache/pagespeed"
   remote.exec "docker run -d --name #{server} -v /repositories/#{server}:/data abhishek0/ghost"
   remote.exec "/repositories/deployment.rb"
