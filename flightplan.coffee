@@ -3,9 +3,9 @@ plan = require 'flightplan'
 server = "bechsmartly"
 
 plan.target 'prod',
-  host: '128.199.129.22',
-  username: 'root',
-  password: 'try2crack'
+  host: 'IP_ADDRESS',
+  username: 'USER',
+  password: 'PASSWORD'
   agent: process.env.SSH_AUTH_SOCK
 
 plan.local (local) ->
